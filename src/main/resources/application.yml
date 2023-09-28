@@ -1,0 +1,11 @@
+spring:
+  jackson:
+    date-format: "yyyy-MM-dd'T'HH:mm:ssXXX"
+    deserialization:
+      fail-on-unknown-properties: false
+    time-zone: "America/Sao_Paulo"
+  hateoas:
+    use-hal-as-default-json-media-type: false
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/metrics
