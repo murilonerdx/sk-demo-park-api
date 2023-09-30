@@ -19,4 +19,9 @@ public class UsuarioController {
     public ResponseEntity<Usuario> create(@RequestBody Usuario usuario){
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuario));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> getById(@PathVariable("id") String id){
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.getById(id));
+    }
 }
