@@ -1,6 +1,7 @@
 package com.github.murilonerdx.skdemoparkapi.controller;
 
 import com.github.murilonerdx.skdemoparkapi.dto.PasswordChangeDTO;
+import com.github.murilonerdx.skdemoparkapi.dto.UsuarioCreateDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioDTO;
 import com.github.murilonerdx.skdemoparkapi.entity.Usuario;
 import com.github.murilonerdx.skdemoparkapi.service.UsuarioService;
@@ -20,7 +21,7 @@ public class UsuarioController {
 
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> create(@RequestBody UsuarioDTO usuario){
+    public ResponseEntity<UsuarioDTO> create(@RequestBody UsuarioCreateDTO usuario){
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuario));
     }
 

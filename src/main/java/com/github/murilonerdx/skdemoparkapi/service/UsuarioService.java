@@ -1,10 +1,12 @@
 package com.github.murilonerdx.skdemoparkapi.service;
 
 import com.github.murilonerdx.skdemoparkapi.dto.PasswordChangeDTO;
+import com.github.murilonerdx.skdemoparkapi.dto.UsuarioCreateDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioDTO;
 import com.github.murilonerdx.skdemoparkapi.entity.Usuario;
 import com.github.murilonerdx.skdemoparkapi.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +22,16 @@ public class UsuarioService {
 
 
     @Transactional
-    public UsuarioDTO save(UsuarioDTO ud) {
-        return usuarioRepository.save(ud.toModel()).toDTO();
+    public UsuarioDTO save(UsuarioCreateDTO ud) {
+        Usuario usuario = new Usuario();
+        Usuario byUsername = usuarioRepository.findByUsername(ud.getUsername());
+
+        if(byUsername != null){
+            throw new RuntimeException("Username já existe");
+        }else{
+            BeanUtils.copyProperties(ud, usuario);
+            return usuarioRepository.save(usuario).toDTO();
+        }
     }
 
     @Transactional(readOnly = true)

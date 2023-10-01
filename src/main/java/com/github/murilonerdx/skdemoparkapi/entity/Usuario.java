@@ -35,6 +35,6 @@ public class Usuario {
 
     @JsonIgnore
     public UsuarioDTO toDTO(){
-        return new UsuarioDTO(this.username, null);
+        return new UsuarioDTO(this.id, this.username, null, this.role);
     }
 }
