@@ -1,5 +1,6 @@
 package com.github.murilonerdx.skdemoparkapi.service;
 
+import com.github.murilonerdx.skdemoparkapi.dto.PasswordChangeDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioCreateDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioDTO;
 import com.github.murilonerdx.skdemoparkapi.entity.Usuario;

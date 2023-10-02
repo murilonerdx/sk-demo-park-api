@@ -1,5 +1,6 @@
 package com.github.murilonerdx.skdemoparkapi.controller;
 
+import com.github.murilonerdx.skdemoparkapi.dto.PasswordChangeDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioCreateDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioDTO;
 import com.github.murilonerdx.skdemoparkapi.exception.ErrorMessage;
