@@ -5,6 +5,8 @@ import com.github.murilonerdx.skdemoparkapi.dto.UsuarioCreateDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioDTO;
 import com.github.murilonerdx.skdemoparkapi.entity.Usuario;
 import com.github.murilonerdx.skdemoparkapi.service.UsuarioService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +21,8 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
-
     @PostMapping
-    public ResponseEntity<UsuarioDTO> create(@RequestBody UsuarioCreateDTO usuario){
+    public ResponseEntity<UsuarioDTO> create(@RequestBody @Valid UsuarioCreateDTO usuario){
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuario));
     }
 
@@ -37,7 +38,7 @@ public class UsuarioController {
 
 
     @PatchMapping("/recovery/password/{id}")
-    public ResponseEntity<UsuarioDTO> updatePassword(@PathVariable("id") String id, @RequestBody PasswordChangeDTO passwordChangeDTO){
+    public ResponseEntity<UsuarioDTO> updatePassword(@PathVariable("id") String id, @Valid @RequestBody PasswordChangeDTO passwordChangeDTO){
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.updatePassword(id, passwordChangeDTO));
     }
 }

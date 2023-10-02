@@ -4,6 +4,7 @@ import com.github.murilonerdx.skdemoparkapi.dto.PasswordChangeDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioCreateDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioDTO;
 import com.github.murilonerdx.skdemoparkapi.entity.Usuario;
+import com.github.murilonerdx.skdemoparkapi.exception.NotFoundException;
 import com.github.murilonerdx.skdemoparkapi.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -27,7 +28,7 @@ public class UsuarioService {
         Usuario byUsername = usuarioRepository.findByUsername(ud.getUsername());
 
         if(byUsername != null){
-            throw new RuntimeException("Username já existe");
+            throw new NotFoundException("Username já existe");
         }else{
             BeanUtils.copyProperties(ud, usuario);
             return usuarioRepository.save(usuario).toDTO();
@@ -36,11 +37,11 @@ public class UsuarioService {
 
     @Transactional(readOnly = true)
     public UsuarioDTO getById(String id) {
-        return usuarioRepository.findById(id).orElseThrow(() ->  new RuntimeException("Usuario não existe")).toDTO();
+        return usuarioRepository.findById(id).orElseThrow(() ->  new NotFoundException("Usuario não existe")).toDTO();
     }
 
     public UsuarioDTO updatePassword(String id, PasswordChangeDTO passwordChangeDTO) {
-        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario não existe"));
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new NotFoundException("Usuario não existe"));
 
         usuario.setPassword(passwordChangeDTO.getPassword());
         return usuarioRepository.save(usuario).toDTO();
