@@ -28,4 +28,12 @@ public class RestControllerHandler  {
                 );
     }
 
+    @ExceptionHandler(UsernameExistException.class)
+    public ResponseEntity<ErrorMessage> methodArgumentNotValidException(UsernameExistException e, HttpServletRequest request){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        new ErrorMessage(request, HttpStatus.BAD_REQUEST, e.getMessage())
+                );
+    }
+
 }

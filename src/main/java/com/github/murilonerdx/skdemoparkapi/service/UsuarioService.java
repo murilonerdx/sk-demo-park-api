@@ -5,6 +5,7 @@ import com.github.murilonerdx.skdemoparkapi.dto.UsuarioCreateDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioDTO;
 import com.github.murilonerdx.skdemoparkapi.entity.Usuario;
 import com.github.murilonerdx.skdemoparkapi.exception.NotFoundException;
+import com.github.murilonerdx.skdemoparkapi.exception.UsernameExistException;
 import com.github.murilonerdx.skdemoparkapi.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -28,7 +29,7 @@ public class UsuarioService {
         Usuario byUsername = usuarioRepository.findByUsername(ud.getUsername());
 
         if(byUsername != null){
-            throw new NotFoundException("Username já existe");
+            throw new UsernameExistException(String.format("Username %s já existe", byUsername.getUsername()));
         }else{
             BeanUtils.copyProperties(ud, usuario);
             return usuarioRepository.save(usuario).toDTO();
