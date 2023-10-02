@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsuarioCreateDTO {
-    @Size(min=6)
+    @Size(min=6, max=24)
     @NotEmpty(message = "Digite um username")
     private String username;
 
-    @Size(min=6)
+    @Size(min=6, max=24)
     @NotNull(message= "Digite uma senha")
     private String password;
 }

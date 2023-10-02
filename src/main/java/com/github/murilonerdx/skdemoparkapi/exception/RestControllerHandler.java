@@ -36,4 +36,11 @@ public class RestControllerHandler  {
                 );
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorMessage> runtimeException(RuntimeException e, HttpServletRequest request){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        new ErrorMessage(request, HttpStatus.BAD_REQUEST, e.getLocalizedMessage())
+                );
+    }
 }

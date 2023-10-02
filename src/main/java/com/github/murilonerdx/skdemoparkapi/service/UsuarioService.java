@@ -1,6 +1,5 @@
 package com.github.murilonerdx.skdemoparkapi.service;
 
-import com.github.murilonerdx.skdemoparkapi.dto.PasswordChangeDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioCreateDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioDTO;
 import com.github.murilonerdx.skdemoparkapi.entity.Usuario;
@@ -44,8 +43,12 @@ public class UsuarioService {
     public UsuarioDTO updatePassword(String id, PasswordChangeDTO passwordChangeDTO) {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new NotFoundException("Usuario não existe"));
 
-        usuario.setPassword(passwordChangeDTO.getPassword());
-        return usuarioRepository.save(usuario).toDTO();
+        if(usuario.getPassword().equals(passwordChangeDTO.getPassword())){
+            usuario.setPassword(passwordChangeDTO.getPassword());
+            return usuarioRepository.save(usuario).toDTO();
+        }else{
+            throw new RuntimeException(String.format("A senha para %s está incorreta", usuario.getUsername()));
+        }
     }
 
     @Transactional(readOnly = true)
