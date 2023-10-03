@@ -12,7 +12,7 @@ spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
-  # Springdoc OpenApi 3.1 & Swagger 3
+# Springdoc OpenApi 3.1 & Swagger 3
 springdoc:
   packagesToScan: com.github.murilonerdx.skdemoparkapi.controller
   swagger-ui:
