@@ -9,6 +9,7 @@ import com.github.murilonerdx.skdemoparkapi.exception.UsernameExistException;
 import com.github.murilonerdx.skdemoparkapi.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Transactional
@@ -32,8 +34,19 @@ public class UsuarioService {
             throw new UsernameExistException(String.format("Username %s já existe", byUsername.getUsername()));
         }else{
             BeanUtils.copyProperties(ud, usuario);
+            usuario.setPassword(passwordEncoder.encode(ud.getPassword()));
             return usuarioRepository.save(usuario).toDTO();
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Usuario findByUsername(String username){
+        return usuarioRepository.findByUsername(username);
+    }
+
+    @Transactional(readOnly = true)
+    public Usuario.Role findRoleByUsername(String username){
+        return usuarioRepository.findRoleByUsername(username);
     }
 
     @Transactional(readOnly = true)
@@ -44,7 +57,7 @@ public class UsuarioService {
     public UsuarioDTO updatePassword(String id, PasswordChangeDTO passwordChangeDTO) {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new NotFoundException("Usuario não existe"));
 
-        if(usuario.getPassword().equals(passwordChangeDTO.getPassword())){
+        if(passwordEncoder.matches(passwordChangeDTO.getPassword(), usuario.getPassword())){
             usuario.setPassword(passwordChangeDTO.getPassword());
             return usuarioRepository.save(usuario).toDTO();
         }else{
