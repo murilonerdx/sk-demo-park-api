@@ -8,6 +8,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.nio.file.AccessDeniedException;
+
 @RestControllerAdvice
 public class RestControllerHandler  {
 
@@ -17,6 +19,14 @@ public class RestControllerHandler  {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(
                         new ErrorMessage(request, HttpStatus.NOT_FOUND, e.getMessage(), result)
+                );
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorMessage> erroracessDeniedException(AccessDeniedException e, HttpServletRequest request, BindingResult result){
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(
+                        new ErrorMessage(request, HttpStatus.FORBIDDEN, e.getMessage(), result)
                 );
     }
 

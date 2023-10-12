@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,6 +51,9 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.getAll());
     }
 
+    @PreAuthorize(
+            "hasHole('ADMIN') OR (hasHole('CUSTOMER') AND #id == authentication.principal.id)"
+    )
     @Operation(summary = "Recuperar um usuário pelo id", description = "Recuperar um usuário pelo id",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso",

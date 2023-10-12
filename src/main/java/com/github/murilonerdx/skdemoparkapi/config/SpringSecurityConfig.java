@@ -1,6 +1,7 @@
 package com.github.murilonerdx.skdemoparkapi.config;
 
 import com.github.murilonerdx.skdemoparkapi.jwt.JwtAuthorizationFilter;
+import com.github.murilonerdx.skdemoparkapi.jwt.jwetAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -40,8 +41,10 @@ public class SpringSecurityConfig {
                 .addFilterBefore(
                         jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class
                 )
+                .exceptionHandling(
+                        ex -> ex.authenticationEntryPoint(new jwetAuthenticationEntryPoint())
+                )
                 .build();
-
     }
 
     @Bean
