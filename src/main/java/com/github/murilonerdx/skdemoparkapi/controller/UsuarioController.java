@@ -66,6 +66,9 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.getById(id));
     }
 
+    @PreAuthorize(
+          "hasAnyRole('ADMIN', 'CUSTOMER') AND (#id == authentication.principal.id)"
+    )
     @Operation(summary = "Atualizar senha", description = "Atualizar senha",
             responses = {
                     @ApiResponse(responseCode = "204", description = "Senha atualizada com sucesso",
