@@ -46,7 +46,9 @@ public class ClienteService {
     }
 
     @Transactional(readOnly = true)
-    public ClienteResponseDTO buscarPorUsuarioId(String id) {
-        return repository.findByUsuarioId(id).toResponseModel();
+    public Cliente buscarPorUsuarioId(String id) {
+        return repository.findByUsuarioId(id);
     }
+
+
 }

@@ -54,7 +54,7 @@ public class UsuarioController {
     }
 
     @PreAuthorize(
-            "hasHole('ADMIN') OR (hasHole('CUSTOMER') AND #id == authentication.principal.id)"
+            "hasRole('ADMIN') OR (hasRole('CUSTOMER') AND #id == authentication.principal.id)"
     )
     @Operation(summary = "Recuperar um usuário pelo id", description = "Recuperar um usuário pelo id",
             security = @SecurityRequirement(name = "security_auth"),

@@ -2,6 +2,7 @@ package com.github.murilonerdx.skdemoparkapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioDTO;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Usuario {
+    @Id
     private String id;
     private String username;
     private String password;

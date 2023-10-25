@@ -86,9 +86,7 @@ public class ClienteController {
         return ResponseEntity.ok(clientes);
     }
 
-    @PreAuthorize(
-            "hasHole('ADMIN') OR (hasHole('CUSTOMER') AND #id == authentication.principal.id)"
-    )
+    @PreAuthorize("hasRole('ADMIN') OR (hasRole('CUSTOMER') AND #id == authentication.principal.id)")
     @Operation(summary = "Recuperar um cliente pelo id", description = "Recuperar um cliente pelo id",
             security = @SecurityRequirement(name = "security_auth"),
             responses = {
@@ -118,13 +116,13 @@ public class ClienteController {
                     )
             })
     @GetMapping("/detalhes")
-    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
+    @PreAuthorize("hasRole('CUSTOMER') OR hasRole('ADMIN')")
     public ResponseEntity<?> getDetalhes(@AuthenticationPrincipal JwtUserDetails userDetails) {
         if(userDetails.getId() == null){
             return ResponseEntity.ok(ErrorMessage.builder().message("Cliente id não encontrado").build());
         }
 
-        ClienteResponseDTO cliente = clienteService.buscarPorUsuarioId(userDetails.getId());
-        return ResponseEntity.ok(cliente);
+        Cliente cliente = clienteService.buscarPorUsuarioId(userDetails.getId());
+        return ResponseEntity.ok(cliente.toResponseModel());
     }
 }
