@@ -23,6 +23,14 @@ public class Usuario {
     private String createBy;
     private String modifyBy;
 
+    public Usuario(String id, String username, String password, Role role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.dataUpdated = LocalDateTime.now();
+    }
+
     public enum Role{
         ROLE_ADMIN, ROLE_CUSTOMER
     }

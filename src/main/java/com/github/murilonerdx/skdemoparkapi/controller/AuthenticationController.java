@@ -6,6 +6,7 @@ import com.github.murilonerdx.skdemoparkapi.exception.ErrorMessage;
 import com.github.murilonerdx.skdemoparkapi.jwt.JwtToken;
 import com.github.murilonerdx.skdemoparkapi.jwt.JwtUserDetails;
 import com.github.murilonerdx.skdemoparkapi.jwt.JwtUserDetailsService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Autenticação", description = "Recurso para autenticação de usuários")
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor

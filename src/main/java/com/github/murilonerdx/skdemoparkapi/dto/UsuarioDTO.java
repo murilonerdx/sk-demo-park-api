@@ -17,4 +17,14 @@ public class UsuarioDTO {
     private String password;
 
     private Usuario.Role role;
+
+    public UsuarioDTO(String s1, String s2) {
+        this.username = s1;
+        this.password = s2;
+    }
+
+    public Usuario toModel(){
+        return new Usuario(id, username, password, role);
+    }
+
 }

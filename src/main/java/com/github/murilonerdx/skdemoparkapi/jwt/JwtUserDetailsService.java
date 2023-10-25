@@ -14,14 +14,12 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     private final UsuarioService usuarioService;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return new JwtUserDetails(usuarioService.findByUsername(username));
     }
 
     public JwtToken getTokenAuthenticated(String username){
-        Usuario.Role roleByUsername = usuarioService.findByUsername(username).getRole();
-        return JwtUtils.createToken(username, roleByUsername.name().substring("ROLE_".length()));
+        return JwtUtils.createToken(username, usuarioService.findByUsername(username).getRole().name().substring("ROLE_".length()));
     }
 }

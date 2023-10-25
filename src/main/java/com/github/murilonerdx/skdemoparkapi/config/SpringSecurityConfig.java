@@ -1,7 +1,7 @@
 package com.github.murilonerdx.skdemoparkapi.config;
 
 import com.github.murilonerdx.skdemoparkapi.jwt.JwtAuthorizationFilter;
-import com.github.murilonerdx.skdemoparkapi.jwt.jwetAuthenticationEntryPoint;
+import com.github.murilonerdx.skdemoparkapi.jwt.JwtAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -31,8 +31,14 @@ public class SpringSecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                antMatcher(HttpMethod.OPTIONS, "/**"),
                                 antMatcher(HttpMethod.POST, "/api/v1/users"),
-                                antMatcher(HttpMethod.POST, "/api/v1/auth")
+                                antMatcher(HttpMethod.POST, "/api/v1/auth"),
+                                antMatcher("/docs-park.html"),
+                                antMatcher("/docs-park/**"),
+                                antMatcher("/swagger-ui.html"),
+                                antMatcher("/swagger-ui/**"),
+                                antMatcher("/webjars/**")
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -42,7 +48,7 @@ public class SpringSecurityConfig {
                         jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class
                 )
                 .exceptionHandling(
-                        ex -> ex.authenticationEntryPoint(new jwetAuthenticationEntryPoint())
+                        ex -> ex.authenticationEntryPoint(new JwtAuthenticationEntryPoint())
                 )
                 .build();
     }

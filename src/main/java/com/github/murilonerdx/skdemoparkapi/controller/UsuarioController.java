@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,7 @@ public class UsuarioController {
     }
 
     @Operation(summary = "Listar todos os usuários", description = "Listar todos os usuários cadastrados",
+            security = @SecurityRequirement(name = "security_auth"),
             responses = {
                     @ApiResponse(responseCode = "200", description = "Lista com todos os usuários cadastrados",
                             content = @Content(mediaType = "application/json",
@@ -55,7 +57,10 @@ public class UsuarioController {
             "hasHole('ADMIN') OR (hasHole('CUSTOMER') AND #id == authentication.principal.id)"
     )
     @Operation(summary = "Recuperar um usuário pelo id", description = "Recuperar um usuário pelo id",
+            security = @SecurityRequirement(name = "security_auth"),
             responses = {
+                    @ApiResponse(responseCode = "403", description = "Erro ao recuperar  usuario pelo id",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioDTO.class))),
                     @ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioDTO.class))),
                     @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
@@ -70,6 +75,7 @@ public class UsuarioController {
           "hasAnyRole('ADMIN', 'CUSTOMER') AND (#id == authentication.principal.id)"
     )
     @Operation(summary = "Atualizar senha", description = "Atualizar senha",
+            security = @SecurityRequirement(name = "security_auth"),
             responses = {
                     @ApiResponse(responseCode = "204", description = "Senha atualizada com sucesso",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class))),
