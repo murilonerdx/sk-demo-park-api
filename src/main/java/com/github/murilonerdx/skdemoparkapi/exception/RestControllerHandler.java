@@ -51,6 +51,15 @@ public class RestControllerHandler  {
                 );
     }
 
+    @ExceptionHandler(VagaExistException.class)
+    public ResponseEntity<ErrorMessage> methodVagaExistException(VagaExistException e, HttpServletRequest request){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(
+                        new ErrorMessage(request, HttpStatus.BAD_REQUEST, e.getMessage())
+                );
+    }
+
     @ExceptionHandler(CpfUniqueViolationException.class)
     public ResponseEntity<ErrorMessage> methodCpfUniqueViolationException(CpfUniqueViolationException e, HttpServletRequest request){
         return ResponseEntity.status(HttpStatus.CONFLICT)
