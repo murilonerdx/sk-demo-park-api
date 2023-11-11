@@ -36,6 +36,11 @@ public class ClienteService {
     }
 
     @Transactional(readOnly = true)
+    public Cliente findByCpfModel(String cpf){
+        return repository.findByCpf(cpf);
+    }
+
+    @Transactional(readOnly = true)
     public ClienteResponseDTO getById(String id) {
         return repository.findById(id).orElseThrow(() ->  new NotFoundException("Cliente não existe")).toResponseModel();
     }

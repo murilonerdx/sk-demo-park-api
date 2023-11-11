@@ -17,7 +17,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -116,6 +115,21 @@ public class VagaController {
     public ResponseEntity<Vaga> getCodigo(@PathVariable("codigo") String codigo){
         return ResponseEntity.ok().body(service.getByCodigo(codigo));
     }
+
+    @Operation(summary = "Buscar por createdBy", description = "Recurso para buscar vaga por createdBy",
+            security = @SecurityRequirement(name = "security_auth"),
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Recurso encontrado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioCreateDTO.class))),
+                    @ApiResponse(responseCode = "422", description = "Recurso não processado por dados de entrada invalidos",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+            })
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('CUSTOMER')")
+    @GetMapping("/createdBy/{createdBy}")
+    public ResponseEntity<List<Vaga>> findByCreated(@PathVariable("createdBy") String createdBy){
+        return ResponseEntity.ok().body(service.findByCreatedBy(createdBy));
+    }
+
 
     @Operation(summary = "Criar uma vaga", description = "Recurso para criar um novo vaga",
             security = @SecurityRequirement(name = "security_auth"),

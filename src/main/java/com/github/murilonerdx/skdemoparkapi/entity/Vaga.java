@@ -16,8 +16,6 @@ import java.time.LocalDateTime;
 @Document
 @Table
 @Data
-@Getter
-@Setter
 @EntityListeners(AuditingEntityListener.class)
 public class Vaga {
     @Id

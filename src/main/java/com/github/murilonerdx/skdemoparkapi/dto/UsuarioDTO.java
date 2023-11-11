@@ -3,11 +3,13 @@ package com.github.murilonerdx.skdemoparkapi.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.murilonerdx.skdemoparkapi.entity.Usuario;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
 public class UsuarioDTO {
     private String id;

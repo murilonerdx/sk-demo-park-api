@@ -24,6 +24,10 @@ public class VagaService {
         return repository.findByStatus(StatusVaga.LIVRE).stream().map(Vaga::toDTO).toList();
     }
 
+    public List<Vaga> findVagaLivreModel() {
+        return repository.findByStatus(StatusVaga.LIVRE).stream().toList();
+    }
+
     public Vaga getByCodigo(String codigo) {
         return repository.findByCodigo(codigo);
     }
@@ -68,13 +72,4 @@ public class VagaService {
     public void delete(String id) {
         repository.delete(getById(id));
     }
-
-    public Vaga update(String id, Vaga vaga) {
-        Vaga vagaDB = getById(id);
-        vagaDB.setCodigo(vaga.getCodigo());
-        vagaDB.setDataUpdated(LocalDateTime.now());
-        vagaDB.setStatus(vaga.getStatus());
-        return repository.save(vagaDB);
-    }
-
 }
