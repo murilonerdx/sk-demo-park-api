@@ -49,7 +49,7 @@ public class ClienteController {
     public ResponseEntity<ClienteResponseDTO> create(@RequestBody @Valid ClienteCreateDTO cliente, @AuthenticationPrincipal JwtUserDetails userDetails){
         Cliente clienteCreateDTO = cliente.toModel();
         clienteCreateDTO.setUsuario(usuarioService.getById(userDetails.getId()).toModel());
-        return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(cliente));
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clienteCreateDTO));
     }
 
     @Operation(summary = "Recuperar lista de clientes",

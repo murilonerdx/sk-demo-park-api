@@ -1,0 +1,27 @@
+[
+  {
+    "id": "200",
+    "codigo": "A-025",
+    "status": "OCUPADA"
+  },
+  {
+    "id": "300",
+    "codigo": "A-03",
+    "status": "OCUPADA"
+  },
+  {
+    "id": "400",
+    "codigo": "A-04",
+    "status": "LIVRE"
+  },
+  {
+    "id": "500",
+    "codigo": "A-7",
+    "status": "LIVRE"
+  },
+  {
+    "id": "500",
+    "codigo": "A-01",
+    "status": "LIVRE"
+  }
+]

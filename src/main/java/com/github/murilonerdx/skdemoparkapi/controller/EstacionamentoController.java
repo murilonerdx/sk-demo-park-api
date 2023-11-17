@@ -78,8 +78,7 @@ public class EstacionamentoController {
         return ResponseEntity.created(location).body(responseDto);
     }
 
-    @Operation(summary = "Localizar um veículo estacionado", description = "Recurso para retornar um veículo estacionado " +
-            "pelo nº do recibo. Requisição exige uso de um bearer token.",
+    @Operation(summary = "Localizar um veículo estacionado", description = "Recurso para retornar um veículo estacionado pelo nº do recibo. Requisição exige uso de um bearer token.",
             security = @SecurityRequirement(name = "security_auth"),
             parameters = {
                 @Parameter(in = PATH, name = "recibo", description = "Número do rebibo gerado pelo check-in")
@@ -155,7 +154,7 @@ public class EstacionamentoController {
             })
     @GetMapping("/cpf/{cpf}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Page<ClienteVagaProjection>> getAllEstacionamentosPorCpf(@PathVariable String cpf, @Parameter(hidden = true)
+    public ResponseEntity<Page<ClienteVaga>> getAllEstacionamentosPorCpf(@PathVariable String cpf, @Parameter(hidden = true)
     @PageableDefault(size = 5, sort = "dataEntrada",
             direction = Sort.Direction.ASC) Pageable pageable) {
         return ResponseEntity.ok(clienteVagaService.buscarTodosPorClienteCpf(cpf, pageable));
@@ -195,7 +194,7 @@ public class EstacionamentoController {
                                                                               size = 5, sort = "dataEntrada",
                                                                               direction = Sort.Direction.ASC) Pageable pageable) {
 
-        return ResponseEntity.ok(clienteVagaService.buscarTodosPorUsuarioId(user.getId(), pageable));
+        return ResponseEntity.ok(clienteVagaService.buscarTodosPorUsuarioId(user.getId(), pageable).map(ClienteVaga::toProjection));
     }
 
 }

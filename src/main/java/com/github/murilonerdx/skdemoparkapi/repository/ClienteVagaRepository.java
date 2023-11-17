@@ -12,7 +12,7 @@ public interface ClienteVagaRepository extends MongoRepository<ClienteVaga, Long
 
     long countByClienteCpfAndDataSaidaIsNotNull(String cpf);
 
-    Page<ClienteVagaProjection> findAllByClienteCpf(String cpf, Pageable pageable);
+    Page<ClienteVaga> findAllByClienteCpf(String cpf, Pageable pageable);
 
-    Page<ClienteVagaProjection> findAllByClienteUsuarioId(String id, Pageable pageable);
+    Page<ClienteVaga> findAllByClienteUsuarioId(String id, Pageable pageable);
 }

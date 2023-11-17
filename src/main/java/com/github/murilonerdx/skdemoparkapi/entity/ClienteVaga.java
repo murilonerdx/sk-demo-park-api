@@ -2,6 +2,7 @@ package com.github.murilonerdx.skdemoparkapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.murilonerdx.skdemoparkapi.dto.EstacionamentoResponseDTO;
+import com.github.murilonerdx.skdemoparkapi.repository.ClienteVagaProjection;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,7 @@ import java.time.ZoneId;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClienteVaga {
+public class ClienteVaga implements ClienteVagaProjection{
     @Id
     private String id;
     private String recibo;
@@ -58,4 +59,72 @@ public class ClienteVaga {
         );
     }
 
+    public ClienteVagaProjection toProjection(){
+        return new ClienteVagaProjection() {
+            @Override
+            public String getPlaca() {
+                return placa;
+            }
+
+            @Override
+            public String getMarca() {
+                return marca;
+            }
+
+            @Override
+            public String getModelo() {
+                return modelo;
+            }
+
+            @Override
+            public String getCor() {
+                return  cor;
+            }
+
+            @Override
+            public String getClienteCpf() {
+                return cliente.getCpf();
+            }
+
+            @Override
+            public String getRecibo() {
+                return recibo;
+            }
+
+            @Override
+            public LocalDateTime getDataEntrada() {
+                return dataEntrada;
+            }
+
+            @Override
+            public LocalDateTime getDataSaida() {
+                return dataSaida;
+            }
+
+            @Override
+            public String getVagaCodigo() {
+                return vaga.getCodigo();
+            }
+
+            @Override
+            public BigDecimal getValor() {
+                return valor;
+            }
+
+            @Override
+            public BigDecimal getDesconto() {
+                return desconto;
+            }
+        };
+    }
+
+    @Override
+    public String getClienteCpf() {
+        return null;
+    }
+
+    @Override
+    public String getVagaCodigo() {
+        return null;
+    }
 }

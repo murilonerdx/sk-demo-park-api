@@ -1,0 +1,24 @@
+[
+  {
+    "id": 21,
+    "nome": "Biatriz Rodrigues",
+    "cpf": "09191773016",
+    "usuario": {
+      "id": "101",
+      "username": "bia@email.com.br",
+      "password": "$2a$10$AtWo422MdyRQ1RgPzmJNnuDB7xN0GW38sXT4rnBFBqGnMyVmVEf4O",
+      "role": "ROLE_CUSTOMER"
+    }
+  },
+  {
+    "id": 22,
+    "nome": "Rodrigo Silva",
+    "cpf": "98401203015",
+    "usuario": {
+      "id": "102",
+      "username": "bob@email.com.br",
+      "password": "$2a$10$AtWo422MdyRQ1RgPzmJNnuDB7xN0GW38sXT4rnBFBqGnMyVmVEf4O",
+      "role": "ROLE_CUSTOMER"
+    }
+  }
+]

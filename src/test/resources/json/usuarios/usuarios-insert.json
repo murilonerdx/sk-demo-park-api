@@ -1,0 +1,20 @@
+[
+  {
+    "id": "100",
+    "username": "ana@email.com.br",
+    "password": "$2a$10$AtWo422MdyRQ1RgPzmJNnuDB7xN0GW38sXT4rnBFBqGnMyVmVEf4O",
+    "role": "ROLE_ADMIN"
+  },
+  {
+    "id": "101",
+    "username": "bia@email.com.br",
+    "password": "$2a$10$AtWo422MdyRQ1RgPzmJNnuDB7xN0GW38sXT4rnBFBqGnMyVmVEf4O",
+    "role": "ROLE_CUSTOMER"
+  },
+  {
+    "id": "102",
+    "username": "bob@email.com.br",
+    "password": "$2a$10$AtWo422MdyRQ1RgPzmJNnuDB7xN0GW38sXT4rnBFBqGnMyVmVEf4O",
+    "role": "ROLE_CUSTOMER"
+  }
+]

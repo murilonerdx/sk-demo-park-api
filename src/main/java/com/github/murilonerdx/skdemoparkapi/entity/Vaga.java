@@ -1,6 +1,8 @@
 package com.github.murilonerdx.skdemoparkapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.murilonerdx.skdemoparkapi.dto.VagaCreateDTO;
 import com.github.murilonerdx.skdemoparkapi.dto.VagaDTO;
 import com.github.murilonerdx.skdemoparkapi.entity.enums.StatusVaga;
@@ -14,9 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
 @Document
-@Table
 @Data
-@EntityListeners(AuditingEntityListener.class)
 public class Vaga {
     @Id
     private String id;
@@ -31,12 +31,27 @@ public class Vaga {
     private String createBy;
     private String modifyBy;
 
+    @JsonCreator
+    public Vaga(@JsonProperty("id") String id,
+                @JsonProperty("codigo") String codigo,
+                @JsonProperty("status") String status) {
+        this.id = id;
+        this.codigo = codigo;
+        this.status = StatusVaga.fromValue(status);
+    }
 
     public Vaga(String id, String codigo, StatusVaga status, String createBy) {
         this.id = id;
         this.codigo = codigo;
         this.status = status;
         this.createBy = createBy;
+    }
+
+    public Vaga(String id, String codigo, StatusVaga status) {
+        this.id = id;
+        this.codigo = codigo;
+        this.status = status;
+        this.createBy = LocalDateTime.now().toString();
     }
 
     public VagaDTO toDTO() {

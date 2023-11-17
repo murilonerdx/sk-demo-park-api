@@ -23,7 +23,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
@@ -143,8 +145,14 @@ public class VagaController {
             })
     @PreAuthorize("hasRole('ADMIN') OR hasRole('CUSTOMER')")
     @PostMapping
-    public ResponseEntity<VagaDTO> create(VagaCreateDTO vaga, @AuthenticationPrincipal JwtUserDetails userDetails) {
-        return ResponseEntity.ok().body(service.create(vaga.toModel(userDetails.getUsername())));
+    public ResponseEntity<VagaDTO> create(@RequestBody VagaCreateDTO vaga, @AuthenticationPrincipal JwtUserDetails userDetails) {
+        VagaDTO vagaDTO = service.create(vaga.toModel(userDetails.getUsername()));
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequestUri().path("/{id}")
+                .buildAndExpand(vagaDTO.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(vagaDTO);
     }
 
 }

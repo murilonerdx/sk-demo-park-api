@@ -19,14 +19,14 @@ public class ClienteService {
     private final ClienteRepository repository;
 
     @Transactional
-    public ClienteResponseDTO save(ClienteCreateDTO ud) {
+    public ClienteResponseDTO save(Cliente ud) {
         Cliente byEmail = repository.findByCpf(ud.getCpf());
 
         if(byEmail != null){
             throw new CpfUniqueViolationException(String.format("Cliente CPF %s já existe", byEmail.getCpf()));
         }else{
 
-            return repository.save(ud.toModel()).toResponseModel();
+            return repository.save(ud).toResponseModel();
         }
     }
 

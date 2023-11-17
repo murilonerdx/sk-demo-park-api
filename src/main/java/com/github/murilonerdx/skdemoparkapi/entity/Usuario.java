@@ -2,6 +2,8 @@ package com.github.murilonerdx.skdemoparkapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.murilonerdx.skdemoparkapi.dto.UsuarioDTO;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +23,7 @@ public class Usuario {
     private String id;
     private String username;
     private String password;
+    @Enumerated(EnumType.STRING)
     private Role role = Role.ROLE_CUSTOMER;
     private LocalDateTime dateCreated = LocalDateTime.now();
     private LocalDateTime dataUpdated;

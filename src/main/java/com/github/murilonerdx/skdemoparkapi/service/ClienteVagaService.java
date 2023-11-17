@@ -1,7 +1,6 @@
 package com.github.murilonerdx.skdemoparkapi.service;
 
 import com.github.murilonerdx.skdemoparkapi.entity.ClienteVaga;
-import com.github.murilonerdx.skdemoparkapi.repository.ClienteVagaProjection;
 import com.github.murilonerdx.skdemoparkapi.repository.ClienteVagaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -36,12 +35,12 @@ public class ClienteVagaService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ClienteVagaProjection> buscarTodosPorClienteCpf(String cpf, Pageable pageable) {
+    public Page<ClienteVaga> buscarTodosPorClienteCpf(String cpf, Pageable pageable) {
         return repository.findAllByClienteCpf(cpf, pageable);
     }
 
     @Transactional(readOnly = true)
-    public Page<ClienteVagaProjection> buscarTodosPorUsuarioId(String id, Pageable pageable) {
+    public Page<ClienteVaga> buscarTodosPorUsuarioId(String id, Pageable pageable) {
         return repository.findAllByClienteUsuarioId(id, pageable);
     }
 }

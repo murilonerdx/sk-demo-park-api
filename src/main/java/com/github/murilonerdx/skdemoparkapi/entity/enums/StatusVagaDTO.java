@@ -1,11 +1,16 @@
 package com.github.murilonerdx.skdemoparkapi.entity.enums;
 
 public enum StatusVagaDTO {
-    LIVRE, OCUPADA
+    LIVRE("LIVRE"), OCUPADA("OCUPADA")
 
     ;
 
+    private String value;
+
+    StatusVagaDTO(String value){
+        this.value = value;
+    }
     public StatusVaga tDTO(){
-        return StatusVaga.valueOf(this.name());
+        return StatusVaga.fromValue(this.name());
     }
 }

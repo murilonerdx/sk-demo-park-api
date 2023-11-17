@@ -1,0 +1,71 @@
+[
+  {
+    "recibo": "20230313-101300",
+    "placa": "FIT-1020",
+    "marca": "FIAT",
+    "modelo": "PALIO",
+    "cor": "VERDE",
+    "cliente": {
+      "id": "21",
+      "nome": "Biatriz Rodrigues",
+      "cpf": "09191773016",
+      "usuario": {
+        "id": "100",
+        "username": "ana@email.com.br",
+        "password": "$2a$10$AtWo422MdyRQ1RgPzmJNnuDB7xN0GW38sXT4rnBFBqGnMyVmVEf4O",
+        "role": "ROLE_ADMIN"
+      }
+    },
+    "vaga":  {
+      "id": "300",
+      "codigo": "A-03",
+      "status": "OCUPADA"
+    }
+  },
+  {
+    "recibo": "20230314-101400",
+    "placa": "SIE-1020",
+    "marca": "FIAT",
+    "modelo": "SIENA",
+    "cor": "BRANCO",
+    "cliente": {
+      "id": 21,
+      "nome": "Biatriz Rodrigues",
+      "cpf": "09191773016",
+      "usuario": {
+        "id": "101",
+        "username": "bia@email.com.br",
+        "password": "$2a$10$AtWo422MdyRQ1RgPzmJNnuDB7xN0GW38sXT4rnBFBqGnMyVmVEf4O",
+        "role": "ROLE_CUSTOMER"
+      }
+    },
+    "vaga":  {
+      "id": "400",
+      "codigo": "A-04",
+      "status": "LIVRE"
+    }
+  },
+  {
+    "recibo": "20230315-101500",
+    "placa": "FIT-1020",
+    "marca": "FIAT",
+    "modelo": "PALIO",
+    "cor": "VERDE",
+    "cliente": {
+      "id": 22,
+      "nome": "Rodrigo Silva",
+      "cpf": "98401203015",
+      "usuario": {
+        "id": 102,
+        "username": "bob@email.com.br",
+        "password": "$2a$10$AtWo422MdyRQ1RgPzmJNnuDB7xN0GW38sXT4rnBFBqGnMyVmVEf4O",
+        "role": "ROLE_CUSTOMER"
+      }
+    },
+    "vaga": {
+      "id": "500",
+      "codigo": "A-05",
+      "status": "LIVRE"
+    }
+  }
+]

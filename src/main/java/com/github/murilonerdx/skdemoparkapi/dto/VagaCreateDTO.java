@@ -1,5 +1,7 @@
 package com.github.murilonerdx.skdemoparkapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.murilonerdx.skdemoparkapi.entity.Cliente;
 import com.github.murilonerdx.skdemoparkapi.entity.Vaga;
 import com.github.murilonerdx.skdemoparkapi.entity.enums.StatusVaga;
@@ -17,14 +19,23 @@ import org.hibernate.validator.constraints.br.CPF;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class VagaCreateDTO {
+    @JsonProperty("codigo")
     private String codigo;
     @Enumerated(EnumType.STRING)
+    @JsonProperty("status")
     private StatusVagaDTO status;
 
     public Vaga toModel(String createBy) {
-        return new Vaga(null, codigo, status.tDTO(), createBy);
+        return new Vaga(null, this.codigo, this.status.tDTO(), createBy);
+    }
+
+    @JsonCreator
+    public VagaCreateDTO(
+                @JsonProperty("codigo") String codigo,
+                @JsonProperty("status") StatusVagaDTO status) {
+        this.codigo = codigo;
+        this.status = status;
     }
 }
