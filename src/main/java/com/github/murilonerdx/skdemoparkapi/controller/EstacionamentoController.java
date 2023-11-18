@@ -8,6 +8,7 @@ import com.github.murilonerdx.skdemoparkapi.entity.ClienteVaga;
 import com.github.murilonerdx.skdemoparkapi.exception.ErrorMessage;
 import com.github.murilonerdx.skdemoparkapi.jwt.JwtUserDetails;
 import com.github.murilonerdx.skdemoparkapi.repository.ClienteVagaProjection;
+import com.github.murilonerdx.skdemoparkapi.service.ClienteService;
 import com.github.murilonerdx.skdemoparkapi.service.ClienteVagaService;
 import com.github.murilonerdx.skdemoparkapi.service.EstacionamentoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -81,7 +82,7 @@ public class EstacionamentoController {
     @Operation(summary = "Localizar um veículo estacionado", description = "Recurso para retornar um veículo estacionado pelo nº do recibo. Requisição exige uso de um bearer token.",
             security = @SecurityRequirement(name = "security_auth"),
             parameters = {
-                @Parameter(in = PATH, name = "recibo", description = "Número do rebibo gerado pelo check-in")
+                    @Parameter(in = PATH, name = "recibo", description = "Número do rebibo gerado pelo check-in")
             },
             responses = {
                     @ApiResponse(responseCode = "200", description = "Recurso localizado com sucesso",
@@ -102,7 +103,7 @@ public class EstacionamentoController {
     @Operation(summary = "Operação de check-out", description = "Recurso para dar saída de um veículo do estacionamento. " +
             "Requisição exige uso de um bearer token. Acesso restrito a Role='ADMIN'",
             security = @SecurityRequirement(name = "security_auth"),
-            parameters = { @Parameter(in = PATH, name = "recibo", description = "Número do rebibo gerado pelo check-in",
+            parameters = {@Parameter(in = PATH, name = "recibo", description = "Número do rebibo gerado pelo check-in",
                     required = true)
             },
             responses = {
@@ -161,7 +162,6 @@ public class EstacionamentoController {
     }
 
 
-
     @Operation(summary = "Localizar os registros de estacionamentos do cliente logado",
             description = "Localizar os registros de estacionamentos do cliente logado. " +
                     "Requisição exige uso de um bearer token.",
@@ -191,10 +191,9 @@ public class EstacionamentoController {
     @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')")
     public ResponseEntity<Page<ClienteVagaProjection>> getAllEstacionamentosDoCliente(@AuthenticationPrincipal JwtUserDetails user,
                                                                                       @Parameter(hidden = true) @PageableDefault(
-                                                                              size = 5, sort = "dataEntrada",
-                                                                              direction = Sort.Direction.ASC) Pageable pageable) {
+                                                                                              size = 5, sort = "dataEntrada",
+                                                                                              direction = Sort.Direction.ASC) Pageable pageable) {
 
         return ResponseEntity.ok(clienteVagaService.buscarTodosPorUsuarioId(user.getId(), pageable).map(ClienteVaga::toProjection));
     }
-
 }

@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ClienteVagaService {
@@ -42,5 +44,10 @@ public class ClienteVagaService {
     @Transactional(readOnly = true)
     public Page<ClienteVaga> buscarTodosPorUsuarioId(String id, Pageable pageable) {
         return repository.findAllByClienteUsuarioId(id, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ClienteVaga> buscarTodosPorClienteCpf(String id) {
+        return repository.buscarTodosPorClienteCpf(id);
     }
 }
